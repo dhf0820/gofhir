@@ -9,6 +9,7 @@ import (
 // identifier, family, given, birthdate, gender, address, telecom
 // i.e. family=Argonaut&given=Jason
 func (c *Connection) PatientSearch(query string) (*PatientResult, error) {
+	fmt.Printf("%sPatient?%v\n\n", c.BaseURL, query)
 	b, err := c.Query(fmt.Sprintf("Patient?%v", query))
 	if err != nil {
 		return nil, err
