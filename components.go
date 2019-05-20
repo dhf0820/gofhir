@@ -100,6 +100,8 @@ type Name struct {
 	Use    string   `json:"use"`
 	Family []string `json:"family"`
 	Given  []string `json:"given"`
+	Suffix []string `json:"suffix"`
+	Prefix []string `json:"prefix"`
 }
 
 // Identifier can identify things
