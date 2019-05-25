@@ -8,6 +8,7 @@ import (
 
 // GetDiagnosticReport will return a diagnostic report for a patient with id pid
 func (c *Connection) GetDiagnosticReport(pid string) (*DiagnosticReport, error) {
+	fmt.Printf("DiagnosticReport?patient=%v", pid)
 	b, err := c.Query(fmt.Sprintf("DiagnosticReport?patient=%v", pid))
 	if err != nil {
 		return nil, err
@@ -26,16 +27,17 @@ type DiagnosticReport struct {
 		EntryPartial
 		Resource struct {
 			ResourcePartial
-			Issued        time.Time    `json:"issued"`
-			Identifier    []Identifier `json:"identifier"`
-			Meta          MetaData     `json:"meta"`
-			Text          TextData     `json:"text"`
-			Category      CodeText     `json:"category"`
-			Code          CodeText     `json:"code"`
-			PresentedForm []Attachment `json:"presentedForm"`
-			Request       []Thing      `json:"request"`
-			Encounter     Encounter    `json:"encounter"`
-			Result        []Thing      `json:"result"`
+			EffectiveDateTime time.Time    `json:"effective_date_time"`
+			Issued            time.Time    `json:"issued"`
+			Identifier        []Identifier `json:"identifier"`
+			Meta              MetaData     `json:"meta"`
+			Text              TextData     `json:"text"`
+			Category          CodeText     `json:"category"`
+			Code              CodeText     `json:"code"`
+			PresentedForm     []Attachment `json:"presentedForm"`
+			Request           []Thing      `json:"request"`
+			Encounter         Encounter    `json:"encounter"`
+			Result            []Thing      `json:"result"`
 		} `json:"resource"`
 	} `json:"entry"`
 }
