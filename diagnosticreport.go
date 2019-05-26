@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 // GetDiagnosticReport will return a diagnostic report for a patient with id pid
@@ -13,6 +15,8 @@ func (c *Connection) GetDiagnosticReport(pid string) (*DiagnosticReport, error) 
 	if err != nil {
 		return nil, err
 	}
+	fmt.Printf("@@@DiagnosticReport:\n")
+	spew.Dump(b)
 	data := DiagnosticReport{}
 	if err := json.Unmarshal(b, &data); err != nil {
 		return nil, err
