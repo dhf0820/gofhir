@@ -45,12 +45,12 @@ type DiagnosticReport struct {
 }
 
 type ResourceEntry struct {
-	MyEntryPartial EntryPartial
-	MyResource     Resource `json:"resource"`
+	EntryPartial EntryPartial
+	Resource     DiagnosticReportResource `json:"resource"`
 }
 
-type Resource struct {
-	MyResourcePartial ResourcePartial
+type DiagnosticReportResource struct {
+	ResourcePartial   ResourcePartial
 	EffectiveDateTime time.Time    `json:"effective_date_time"`
 	Issued            time.Time    `json:"issued"`
 	Identifier        []Identifier `json:"identifier"`
