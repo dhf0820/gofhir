@@ -23,23 +23,45 @@ func (c *Connection) GetDiagnosticReport(pid string) (*DiagnosticReport, error) 
 // DiagnosticReport is a FHIR report
 type DiagnosticReport struct {
 	SearchResult
-	Entry []struct {
-		EntryPartial
-		Resource struct {
-			ResourcePartial
-			EffectiveDateTime time.Time    `json:"effective_date_time"`
-			Issued            time.Time    `json:"issued"`
-			Identifier        []Identifier `json:"identifier"`
-			Meta              MetaData     `json:"meta"`
-			Text              TextData     `json:"text"`
-			Category          CodeText     `json:"category"`
-			Code              CodeText     `json:"code"`
-			PresentedForm     []Attachment `json:"presentedForm"`
-			Request           []Thing      `json:"request"`
-			Encounter         Encounter    `json:"encounter"`
-			Result            []Thing      `json:"result"`
-		} `json:"resource"`
-	} `json:"entry"`
+	Entry []ResourceEntry `json:"entry"`
+
+	// Entry []struct {
+	// 	EntryPartial
+	// 	Resource struct {
+	// 		ResourcePartial
+	// 		EffectiveDateTime time.Time    `json:"effective_date_time"`
+	// 		Issued            time.Time    `json:"issued"`
+	// 		Identifier        []Identifier `json:"identifier"`
+	// 		Meta              MetaData     `json:"meta"`
+	// 		Text              TextData     `json:"text"`
+	// 		Category          CodeText     `json:"category"`
+	// 		Code              CodeText     `json:"code"`
+	// 		PresentedForm     []Attachment `json:"presentedForm"`
+	// 		Request           []Thing      `json:"request"`
+	// 		Encounter         Encounter    `json:"encounter"`
+	// 		Result            []Thing      `json:"result"`
+	// 	} `json:"resource"`
+	// } `json:"entry"`
+}
+
+type ResourceEntry struct {
+	MyEntryPartial EntryPartial
+	MyResource     Resource `json:"resource"`
+}
+
+type Resource struct {
+	MyResourcePartial ResourcePartial
+	EffectiveDateTime time.Time    `json:"effective_date_time"`
+	Issued            time.Time    `json:"issued"`
+	Identifier        []Identifier `json:"identifier"`
+	Meta              MetaData     `json:"meta"`
+	Text              TextData     `json:"text"`
+	Category          CodeText     `json:"category"`
+	Code              CodeText     `json:"code"`
+	PresentedForm     []Attachment `json:"presentedForm"`
+	Request           []Thing      `json:"request"`
+	Encounter         Encounter    `json:"encounter"`
+	Result            []Thing      `json:"result"`
 }
 
 //Category the DiagnosticReport Category
