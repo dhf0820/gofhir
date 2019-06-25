@@ -30,8 +30,8 @@ type Immunization struct {
 			WasNotGiven bool      `json:"wasNotGiven"`
 			Reported    bool      `json:"reported"`
 			LotNumber   string    `json:"lotNumber"`
-			ID          string    `json:"id"`
-			VaccineCode Concept   `json:"vaccineCode"`
+			//ID          string    `json:"id"`
+			VaccineCode Concept `json:"vaccineCode"`
 		} `json:"resource"`
 	} `json:"entry"`
 }
