@@ -29,15 +29,24 @@ type EntryPartial struct {
 
 // ResourcePartial are the common resource fields
 type ResourcePartial struct {
-	ResourceType      string    `json:"resourceType"`
-	EffectiveDateTime time.Time `json:"effectiveDateTime"`
-	RecordedDate      time.Time `json:"recordedDate"`
-	Status            string    `json:"status"`
-	ID                string    `json:"id"`
-	Subject           Person    `json:"subject"`
-	Patient           Person    `json:"patient"`
-	Performer         Person    `json:"performer"`
-	Recorder          Person    `json:"recorder"`
+	ResourceType      string             `json:"resourceType"`
+	EffectiveDateTime time.Time          `json:"effectiveDateTime"`
+	RecordedDate      time.Time          `json:"recordedDate"`
+	Status            string             `json:"status"`
+	ID                string             `json:"id"`
+	Subject           Person             `json:"subject"`
+	Patient           Person             `json:"patient"`
+	Performer         Person             `json:"performer"`
+	Recorder          Person             `json:"recorder"`
+	Encounter         EncounterReference `json:"Encounter"`
+}
+
+// Bundle is the header for any returned Bundle
+type Bundle struct {
+	ResourceType string `json:"resourceType"`
+	ID           string `json:"id"`
+	Type         string `json:"type"`
+	Link         []Link `json:"link"`
 }
 
 // SearchMode is a FHIR search mode
@@ -137,6 +146,11 @@ type Communication struct {
 	Language  Concept `json:"language"`
 }
 
+// Context encounter only initially
+type Context struct {
+	EncounterRef EncounterReference `json:"encounter"`
+}
+
 // Extension is a codified FHIR extension
 type Extension struct {
 	URL                  string  `json:"url"`
@@ -186,3 +200,62 @@ type DosageInstruction struct {
 type DispenseRequest struct {
 	ValidityPeriod Period `json:"validityPeriod"`
 }
+
+//Category the DiagnosticReport Category
+type Category struct {
+	Text string `json:"text"`
+}
+
+//EncounterReference of the report
+type EncounterReference struct {
+	Reference string `json:"reference"`
+}
+
+//MetaData meta field in DocumentReference/DiagnosticReport
+type MetaData struct {
+	VersionID   string    `json:"versionId"`
+	LastUpdated time.Time `json:"lastUpdated"`
+}
+
+//TextData is the html text
+type TextData struct {
+	Status string `json:"status"`
+	Div    string `json:"div"`
+}
+
+type Code string
+type Status string
+
+type BackboneElement struct {
+	Type       []CodeableConcept
+	Period     Period
+	Individual Person
+}
+
+type CodeableConcept struct {
+	Coding []Coding
+	Text   string `json:"text"`
+}
+
+type Location struct {
+	Location struct {
+		Reference string `json:"reference"`
+		Display   string `json:"display"`
+	}
+	Status       Status          `json:"status"`
+	PhysicalType CodeableConcept `json:"physicalType"`
+}
+
+type ServiceProvider struct {
+	Reference string `json:"reference"`
+}
+
+type Reason struct {
+	Text string `json:"text"`
+}
+
+// type Reference struct {
+// 	Reference  string `json:"reference"`
+// 	Identifier Identifier
+// 	Display    string `json:"display"`
+// }
