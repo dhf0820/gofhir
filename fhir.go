@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -48,8 +49,32 @@ func (c *Connection) Query(q string) ([]byte, error) {
 	req.Header.Add("Accept", "application/json")
 	resp, err := c.client.Do(req)
 	if err != nil {
-		return nil, nil
+		fmt.Printf(" !!!fhir query returned err: %s\n", err)
+		return nil, err
 	}
+
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		defer resp.Body.Close()
+		b, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Printf("Query Error: %v\n", err)
+			return nil, err
+		}
+		es := err.Error()
+		if strings.Contains(es, "timeout") {
+			err = fmt.Errorf("408|%v", err)
+		}
+
+		//fmt.Printf("!!!ERROR Response Status Code: %d,  Status: %s\n", resp.StatusCode, string(b))
+		// err = &FhirError{
+		// 	HttpStatusCode: resp.StatusCode,
+		// 	HttpStatus:     resp.Status,
+		// 	Message:        string(b),
+		// }
+		err = fmt.Errorf("%d|%s", resp.StatusCode, string(b))
+		return nil, err
+	}
+	//fmt.Printf("Response Status Code: %s,  Status: %s\n", resp.StatusCode, resp.Status)
 	defer resp.Body.Close()
 	return ioutil.ReadAll(resp.Body)
 }
