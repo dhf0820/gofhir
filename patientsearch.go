@@ -14,6 +14,7 @@ func (c *Connection) PatientSearch(query string) (*PatientResult, error) {
 	if err != nil {
 		return nil, err
 	}
+	//fmt.Printf("\n\n\n@@@ RAW Patient: %s\n\n\n", pretty.Pretty(b))
 	data := PatientResult{}
 	if err := json.Unmarshal(b, &data); err != nil {
 		return nil, err
