@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROOT=$GOPATH/src/github.com/dshills/gofhir
+ROOT=$GOPATH/src/github.com/dhf0820/gofhir
 WATCHFILE=$1
 FPATH=$(dirname "${WATCHFILE}")
 FNAME=$(basename "${WATCHFILE}")
