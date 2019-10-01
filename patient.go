@@ -3,12 +3,17 @@ package fhir
 import (
 	"encoding/json"
 	"fmt"
+	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // GetPatient will return patient information for a patient with id pid
 func (c *Connection) GetPatient(pid string) (*Patient, error) {
-	fmt.Printf("FHIR GetPatient url: %s/Patient/%v", c.BaseURL, pid)
+	log.Infof("FHIR GetPatient url: %s/Patient/%v", c.BaseURL, pid)
+	startTime := time.Now()
 	b, err := c.Query(fmt.Sprintf("Patient/%v", pid))
+	log.Infof("Query took %s", time.Since(startTime))
 	if err != nil {
 		return nil, err
 	}

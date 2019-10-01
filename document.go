@@ -19,7 +19,7 @@ func (c *Connection) GetDocumentReference(pid string) (*DocumentReference, error
 	fmt.Printf("\n\n\n@@@ RAW DocumentReference: %s\n\n\n", pretty.Pretty(b))
 	data := DocumentReference{}
 	if err := json.Unmarshal(b, &data); err != nil {
-		fmt.Printf("GetDocumentReference err: %v\n, err")
+		fmt.Printf("GetDocumentReference err: %s\n", err.Error())
 		return nil, err
 	}
 	return &data, nil

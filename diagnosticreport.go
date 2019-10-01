@@ -43,8 +43,9 @@ func (c *Connection) GetDiagnosticReport(id string) (*DiagnosticReport, error) {
 
 // GetPatientDiagnosticReport will return a diagnostic report for a patient with id pid
 func (c *Connection) GetPatientDiagnosticReport(pid string) (*DiagnosticReport, error) {
-	fmt.Printf("GetPat DiagnosticReport/%s\n", pid)
-	b, err := c.Query(fmt.Sprintf("DiagnosticReport/?patient=%d", pid)) //, ", pid))
+	//https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/DiagnosticReport?patient=1316020&_count=10
+	fmt.Printf("GetPat DiagnosticReport?patient=%s\n", pid)
+	b, err := c.Query(fmt.Sprintf("DiagnosticReport?patient=%s", pid)) //, ", pid))
 	if err != nil {
 		return nil, err
 	}

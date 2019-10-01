@@ -7,10 +7,12 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 const (
-	timeout = 3
+	timeout = 15
 )
 
 // RetData is the mapped json of the request
@@ -42,6 +44,7 @@ func New(baseurl string) *Connection {
 
 // Query sends a query to the base url
 func (c *Connection) Query(q string) ([]byte, error) {
+	log.Infof("c.Query: %s", q)
 	req, err := http.NewRequest("GET", fmt.Sprintf("%v%v", c.BaseURL, q), nil)
 	if err != nil {
 		return nil, err
